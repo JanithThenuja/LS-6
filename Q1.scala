@@ -1,35 +1,25 @@
-object CaesarCipher 
-{
+object CaesarCipher {
 
-  def encrypt(text: String, shift: Int): String = 
-  {
-    text.map 
-    { char =>
-      if (char.isLetter) 
-      {
+  def encrypt(text: String, shift: Int): String = {
+    text.map { char =>
+      if (char.isLetter) {
         val base = if (char.isUpper) 'A' else 'a'
         ((char - base + shift) % 26 + base).toChar
-      } 
-      else 
-      {
+      } else {
         char
       }
-    }
+    }.mkString
   }
 
-  def decrypt(textAndShift: (String,Int)): String = 
-  {
-    val(text,shift) = textAndShift
+  def decrypt(text: String, shift: Int): String = {
     encrypt(text, 26 - shift)
   }
 
-  def cipher(text: String, shift: Int, operation: ((String,Int)) => String): String = 
-  {
-    operation(text,shift)
+  def cipher(text: String, shift: Int, operation: (String, Int) => String): String = {
+    operation(text, shift)
   }
 
-   def main(args: Array[String]): Unit = 
-  {
+  def main(args: Array[String]): Unit = {
     val plaintext = "Hello, World!"
     val shift = 3
 
@@ -39,5 +29,5 @@ object CaesarCipher
     println(s"Plaintext: $plaintext")
     println(s"Encrypted Text: $encryptedText")
     println(s"Decrypted Text: $decryptedText")
-  }
+  }
 }
